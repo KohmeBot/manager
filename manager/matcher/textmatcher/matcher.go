@@ -16,6 +16,14 @@ type TextMatcher struct {
 	on      atomic.Value
 }
 
+func (t *TextMatcher) GetOnMatch() func(userId int64, groupId int64, messages []*zero.Ctx) {
+	res, ok := t.on.Load().(callback)
+	if !ok {
+		return nil
+	}
+	return res
+}
+
 func NewTextMatcher(texts ...string) matcher.AsyncMatcher {
 	m := ahocorasick.NewStringMatcher(texts)
 	return &TextMatcher{matcher: m}

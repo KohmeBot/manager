@@ -47,6 +47,16 @@ func (s *managerPlugin) Init(engine *zero.Engine, env plugin.Env) error {
 	if err != nil {
 		return err
 	}
+
+	r := &BanRecord{}
+	db, err := env.GetDB()
+	if err != nil {
+		return err
+	}
+	err = db.AutoMigrate(&r)
+	if err != nil {
+		return err
+	}
 	path, err := env.FilePath()
 	if err != nil {
 		return err

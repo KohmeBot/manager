@@ -6,8 +6,8 @@ import (
 )
 
 type BanRecord struct {
-	GroupId int64
-	UserId  int64
+	GroupId int64 `gorm:"primaryKey"`
+	UserId  int64 `gorm:"primaryKey"`
 	// 被ban的次数
 	Count int
 	// 上次被ban的时间

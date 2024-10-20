@@ -85,9 +85,10 @@ func (s *managerPlugin) SetOnJoinRequest(engine *zero.Engine) {
 			return
 		}
 		comment = comment[idx+len(trim):]
+		comment = strings.ToLower(comment)
 		var pass bool
 		for _, answer := range s.conf.RequestAnswers {
-			if answer == comment {
+			if strings.Contains(comment, answer) {
 				pass = true
 				break
 			}

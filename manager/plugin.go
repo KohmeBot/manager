@@ -115,5 +115,5 @@ func (s *managerPlugin) Commands() command.Commands {
 }
 
 func (s *managerPlugin) Version() version.Version {
-	return version.NewVersion(0, 0, 1)
+	return version.NewVersion(0, 0, 20)
 }

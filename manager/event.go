@@ -56,7 +56,7 @@ func (s *managerPlugin) SetOnReload(engine *zero.Engine) {
 		copy(dwords, words)
 		copy(dwords[len(words):], s.conf.words)
 		s.matcher.Swap(textmatcher.NewTextMatcher(dwords...))
-		if err != nil {
+		if err == nil {
 			gopool.Go(func() {
 				var msgChain chain.MessageChain
 				ctx.Send(msgChain.Join(message.Text("reload成功！")))

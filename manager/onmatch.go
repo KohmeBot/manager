@@ -19,7 +19,7 @@ func (s *managerPlugin) onMatch(userId, groupId int64, ctxs []*zero.Ctx) {
 
 	msgChain.Split(
 		message.At(userId),
-		message.Text(s.conf.recallTips),
+		message.Text(s.conf.RecallTips),
 	)
 
 	record := BanRecord{}
@@ -27,7 +27,7 @@ func (s *managerPlugin) onMatch(userId, groupId int64, ctxs []*zero.Ctx) {
 	if err != nil {
 		return
 	}
-	need, err := record.NeedBan(time.Duration(s.conf.banCd)*time.Hour, userId, groupId, db)
+	need, err := record.NeedBan(time.Duration(s.conf.BanCd)*time.Hour, userId, groupId, db)
 	if err != nil {
 		return
 	}

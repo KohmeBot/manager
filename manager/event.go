@@ -42,9 +42,9 @@ func (s *managerPlugin) SetOnWord(engine *zero.Engine) {
 		}
 		words := s.tryRead(s.dictPath)
 		s.dictWords.Set(words)
-		dwords := make([]string, len(words)+len(s.conf.words))
+		dwords := make([]string, len(words)+len(s.conf.Words))
 		copy(dwords, words)
-		copy(dwords[len(words):], s.conf.words)
+		copy(dwords[len(words):], s.conf.Words)
 		s.matcher.Swap(textmatcher.NewTextMatcher(dwords...))
 	})
 }
@@ -59,9 +59,9 @@ func (s *managerPlugin) SetOnReload(engine *zero.Engine) {
 			}
 		}()
 		words := s.tryRead(s.dictPath)
-		dwords := make([]string, len(words)+len(s.conf.words))
+		dwords := make([]string, len(words)+len(s.conf.Words))
 		copy(dwords, words)
-		copy(dwords[len(words):], s.conf.words)
+		copy(dwords[len(words):], s.conf.Words)
 		s.matcher.Swap(textmatcher.NewTextMatcher(dwords...))
 		if err == nil {
 			gopool.Go(func() {
@@ -80,7 +80,7 @@ func (s *managerPlugin) SetOnJoinRequest(engine *zero.Engine) {
 		}
 		comment := strings.TrimSpace(ctx.Event.Comment)
 		var pass bool
-		for _, answer := range s.conf.requestAnswers {
+		for _, answer := range s.conf.RequestAnswers {
 			if answer == comment {
 				pass = true
 				break
@@ -91,8 +91,8 @@ func (s *managerPlugin) SetOnJoinRequest(engine *zero.Engine) {
 				ctx.SetGroupAddRequest(ctx.Event.Flag, ctx.Event.SubType, true, "")
 				return
 			}
-			if s.conf.refuse {
-				ctx.SetGroupAddRequest(ctx.Event.Flag, ctx.Event.SubType, false, s.conf.refuseReason)
+			if s.conf.Refuse {
+				ctx.SetGroupAddRequest(ctx.Event.Flag, ctx.Event.SubType, false, s.conf.RefuseReason)
 				return
 			}
 		})
@@ -107,8 +107,8 @@ func (s *managerPlugin) SetOnJoinGroup(engine *zero.Engine) {
 			return
 		}
 		var msgChain chain.MessageChain
-		msgChain.Line(message.Text(s.conf.joinGroup), message.At(ctx.Event.UserID))
-		msgChain.Join(message.Text(s.conf.joinGroupTips))
+		msgChain.Line(message.Text(s.conf.JoinGroup), message.At(ctx.Event.UserID))
+		msgChain.Join(message.Text(s.conf.JoinGroupTips))
 		gopool.Go(func() {
 			ctx.Send(msgChain)
 		})

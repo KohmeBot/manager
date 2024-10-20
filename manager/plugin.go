@@ -51,13 +51,13 @@ func (s *managerPlugin) Init(engine *zero.Engine, env plugin.Env) error {
 	if err != nil {
 		return err
 	}
-	s.dictPath = filepath.Join(path, "words.txt")
+	s.dictPath = filepath.Join(path, "Words.txt")
 	words := s.tryRead(s.dictPath)
 	s.dictWords.Set(words)
 
-	dwords := make([]string, len(words)+len(s.conf.words))
+	dwords := make([]string, len(words)+len(s.conf.Words))
 	copy(dwords, words)
-	copy(dwords[len(words):], s.conf.words)
+	copy(dwords[len(words):], s.conf.Words)
 
 	s.matcher.Swap(textmatcher.NewTextMatcher(dwords...))
 	s.matcher.SetOnMatch(s.onMatch)

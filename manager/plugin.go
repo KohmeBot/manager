@@ -42,6 +42,7 @@ func NewPlugin() plugin.Plugin {
 }
 
 func (s *managerPlugin) Init(engine *zero.Engine, env plugin.Env) error {
+	s.env = env
 	err := env.GetConf(&s.conf)
 	if err != nil {
 		return err

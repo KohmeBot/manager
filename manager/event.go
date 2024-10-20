@@ -79,6 +79,12 @@ func (s *managerPlugin) SetOnJoinRequest(engine *zero.Engine) {
 			return
 		}
 		comment := strings.TrimSpace(ctx.Event.Comment)
+		trim := "答案："
+		idx := strings.Index(comment, trim)
+		if idx < 0 {
+			return
+		}
+		comment = comment[idx+len(trim):]
 		var pass bool
 		for _, answer := range s.conf.RequestAnswers {
 			if answer == comment {

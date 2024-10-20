@@ -34,7 +34,7 @@ func (s *managerPlugin) onMatch(userId, groupId int64, ctxs []*zero.Ctx) {
 	count := record.Count
 	if need && count > 1 {
 		// 禁言时间相当于 2的count-1次方分钟
-		duration := (1 << count) * 60
+		duration := int64((1 << count) * 60)
 		ctxs[0].SetGroupBan(groupId, userId, duration)
 	}
 	ctxs[0].Send(msgChain)

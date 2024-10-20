@@ -26,9 +26,15 @@ func (s *managerPlugin) SetOnWord(engine *zero.Engine) {
 			return
 		}
 		content := cmd.Args
-
+		if len(content) <= 0 {
+			gopool.Go(func() {
+				var msgChain chain.MessageChain
+				ctx.Send(msgChain.Join(message.Text("要我加入的词是什么呢？")))
+			})
+			return
+		}
 		err = s.appendToFile(s.dictPath, content)
-		if err != nil {
+		if err == nil {
 			gopool.Go(func() {
 				var msgChain chain.MessageChain
 				ctx.Send(msgChain.Join(message.Text(fmt.Sprintf("%s 写入成功！", content))))

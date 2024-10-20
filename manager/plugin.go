@@ -61,7 +61,7 @@ func (s *managerPlugin) Init(engine *zero.Engine, env plugin.Env) error {
 	if err != nil {
 		return err
 	}
-	s.dictPath = filepath.Join(path, "Words.txt")
+	s.dictPath = filepath.Join(path, "words.txt")
 	words := s.tryRead(s.dictPath)
 	s.dictWords.Set(words)
 

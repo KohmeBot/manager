@@ -41,7 +41,9 @@ func (s *SafeMatcher) Submit(event *zero.Ctx) {
 func (s *SafeMatcher) Swap(m AsyncMatcher) (swapped AsyncMatcher) {
 	s.rw.Lock()
 	swapped = s.AsyncMatcher
-	m.SetOnMatch(swapped.GetOnMatch())
+	if swapped != nil {
+		m.SetOnMatch(swapped.GetOnMatch())
+	}
 	s.AsyncMatcher = m
 	s.rw.Unlock()
 	return

@@ -33,7 +33,7 @@ func (s *managerPlugin) SetOnWord(engine *zero.Engine) {
 			})
 			return
 		}
-		err = s.appendToFile(s.dictPath, content)
+		err = s.appendToFile(s.dictPath, "\n"+content)
 		if err == nil {
 			gopool.Go(func() {
 				var msgChain chain.MessageChain
@@ -41,6 +41,7 @@ func (s *managerPlugin) SetOnWord(engine *zero.Engine) {
 			})
 		}
 		words := s.tryRead(s.dictPath)
+		s.dictWords.Set(words)
 		dwords := make([]string, len(words)+len(s.conf.words))
 		copy(dwords, words)
 		copy(dwords[len(words):], s.conf.words)

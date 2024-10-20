@@ -67,6 +67,7 @@ func (s *managerPlugin) Init(engine *zero.Engine, env plugin.Env) error {
 	})
 	s.SetOnWord(engine)
 	s.SetOnReload(engine)
+	s.SetOnJoinRequest(engine)
 	s.SetOnJoinGroup(engine)
 	return nil
 }

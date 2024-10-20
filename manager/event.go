@@ -8,6 +8,7 @@ import (
 	zero "github.com/wdvxdr1123/ZeroBot"
 	"github.com/wdvxdr1123/ZeroBot/extension"
 	"github.com/wdvxdr1123/ZeroBot/message"
+	"strings"
 )
 
 func (s *managerPlugin) SetOnWord(engine *zero.Engine) {
@@ -63,6 +64,36 @@ func (s *managerPlugin) SetOnReload(engine *zero.Engine) {
 		}
 	})
 }
+
+// SetOnJoinRequest 设置处理加群申请
+func (s *managerPlugin) SetOnJoinRequest(engine *zero.Engine) {
+	engine.OnRequest(s.env.Groups().Rule()).Handle(func(ctx *zero.Ctx) {
+		if ctx.Event.RequestType != "group" {
+			return
+		}
+		comment := strings.TrimSpace(ctx.Event.Comment)
+		var pass bool
+		for _, answer := range s.conf.requestAnswers {
+			if answer == comment {
+				pass = true
+				break
+			}
+		}
+		gopool.Go(func() {
+			if pass {
+				ctx.SetGroupAddRequest(ctx.Event.Flag, ctx.Event.SubType, true, "")
+				return
+			}
+			if s.conf.refuse {
+				ctx.SetGroupAddRequest(ctx.Event.Flag, ctx.Event.SubType, false, s.conf.refuseReason)
+				return
+			}
+		})
+
+	})
+}
+
+// SetOnJoinGroup 设置有新人加群
 func (s *managerPlugin) SetOnJoinGroup(engine *zero.Engine) {
 	engine.OnNotice(s.env.Groups().Rule()).Handle(func(ctx *zero.Ctx) {
 		if ctx.Event.NoticeType != "group_increase" {

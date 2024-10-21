@@ -19,6 +19,8 @@ type SensitiveConfig struct {
 }
 
 type JoinGroupConfig struct {
+	// 是否开启入群欢迎
+	EnableHello bool `mapstructure:"enable_hello"`
 	// 新人加群的欢迎词
 	JoinGroup string `mapstructure:"join_group"`
 	// 新人加群的额外提示词

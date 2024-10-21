@@ -1,10 +1,11 @@
 module github.com/kohmebot/manager
 
-go 1.20
+go 1.23.1
 
 require (
 	github.com/kohmebot/plugin v1.2.1
 	github.com/wdvxdr1123/ZeroBot v1.7.5
+	gorm.io/gorm v1.25.12
 )
 
 require (
@@ -19,5 +20,4 @@ require (
 	golang.org/x/sync v0.8.0 // indirect
 	golang.org/x/sys v0.26.0 // indirect
 	golang.org/x/text v0.19.0 // indirect
-	gorm.io/gorm v1.25.12 // indirect
 )

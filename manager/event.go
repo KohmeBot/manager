@@ -109,6 +109,9 @@ func (s *managerPlugin) SetOnJoinRequest(engine *zero.Engine) {
 
 // SetOnJoinGroup 设置有新人加群
 func (s *managerPlugin) SetOnJoinGroup(engine *zero.Engine) {
+	if !s.conf.EnableHello {
+		return
+	}
 	engine.OnNotice(s.env.Groups().Rule()).Handle(func(ctx *zero.Ctx) {
 		if ctx.Event.NoticeType != "group_increase" {
 			return

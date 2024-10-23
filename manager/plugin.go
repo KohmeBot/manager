@@ -1,11 +1,12 @@
 package manager
 
 import (
+	"fmt"
 	"github.com/kohmebot/manager/manager/matcher"
 	"github.com/kohmebot/manager/manager/matcher/textmatcher"
+	"github.com/kohmebot/pkg/command"
+	"github.com/kohmebot/pkg/version"
 	"github.com/kohmebot/plugin"
-	"github.com/kohmebot/plugin/pkg/command"
-	"github.com/kohmebot/plugin/pkg/version"
 	"github.com/wdvxdr1123/ZeroBot"
 	"os"
 	"path/filepath"
@@ -110,12 +111,12 @@ func (s *managerPlugin) Description() string {
 	return "群管理插件"
 }
 
-func (s *managerPlugin) Commands() command.Commands {
+func (s *managerPlugin) Commands() fmt.Stringer {
 	return command.NewCommands()
 }
 
-func (s *managerPlugin) Version() version.Version {
-	return version.NewVersion(0, 0, 22)
+func (s *managerPlugin) Version() uint64 {
+	return uint64(version.NewVersion(0, 0, 30))
 }
 
 func (s *managerPlugin) OnBoot() {

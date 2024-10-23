@@ -3,8 +3,8 @@ package manager
 import (
 	"fmt"
 	"github.com/kohmebot/manager/manager/matcher/textmatcher"
-	"github.com/kohmebot/plugin/pkg/chain"
-	"github.com/kohmebot/plugin/pkg/gopool"
+	"github.com/kohmebot/pkg/chain"
+	"github.com/kohmebot/pkg/gopool"
 	zero "github.com/wdvxdr1123/ZeroBot"
 	"github.com/wdvxdr1123/ZeroBot/extension"
 	"github.com/wdvxdr1123/ZeroBot/message"

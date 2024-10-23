@@ -3,7 +3,7 @@ package textmatcher
 import (
 	"github.com/kohmebot/manager/manager/ahocorasick"
 	"github.com/kohmebot/manager/manager/matcher"
-	"github.com/kohmebot/plugin/pkg/gopool"
+	"github.com/kohmebot/pkg/gopool"
 	zero "github.com/wdvxdr1123/ZeroBot"
 	"sync/atomic"
 	"unsafe"

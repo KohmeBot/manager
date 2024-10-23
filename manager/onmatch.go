@@ -1,7 +1,7 @@
 package manager
 
 import (
-	"github.com/kohmebot/plugin/pkg/chain"
+	"github.com/kohmebot/pkg/chain"
 	zero "github.com/wdvxdr1123/ZeroBot"
 	"github.com/wdvxdr1123/ZeroBot/message"
 	"time"

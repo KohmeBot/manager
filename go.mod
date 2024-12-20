@@ -3,7 +3,7 @@ module github.com/kohmebot/manager
 go 1.23.1
 
 require (
-	github.com/kohmebot/pkg v1.0.0
+	github.com/kohmebot/pkg v1.0.1
 	github.com/kohmebot/plugin v1.2.5
 	github.com/wdvxdr1123/ZeroBot v1.7.5
 	gorm.io/gorm v1.25.12

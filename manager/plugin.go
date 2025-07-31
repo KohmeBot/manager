@@ -116,7 +116,7 @@ func (s *managerPlugin) Commands() fmt.Stringer {
 }
 
 func (s *managerPlugin) Version() uint64 {
-	return uint64(version.NewVersion(0, 0, 30))
+	return uint64(version.NewVersion(0, 0, 31))
 }
 
 func (s *managerPlugin) OnBoot() {

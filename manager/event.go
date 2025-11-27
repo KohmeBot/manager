@@ -5,13 +5,14 @@ import (
 	"github.com/kohmebot/manager/manager/matcher/textmatcher"
 	"github.com/kohmebot/pkg/chain"
 	"github.com/kohmebot/pkg/gopool"
+	"github.com/kohmebot/plugin/v2"
 	zero "github.com/wdvxdr1123/ZeroBot"
 	"github.com/wdvxdr1123/ZeroBot/extension"
 	"github.com/wdvxdr1123/ZeroBot/message"
 	"strings"
 )
 
-func (s *managerPlugin) SetOnWord(engine *zero.Engine) {
+func (s *managerPlugin) SetOnWord(engine plugin.Engine) {
 	engine.OnCommand("word", s.env.SuperUser().Rule()).Handle(func(ctx *zero.Ctx) {
 		var cmd extension.CommandModel
 		var err error
@@ -49,7 +50,7 @@ func (s *managerPlugin) SetOnWord(engine *zero.Engine) {
 	})
 }
 
-func (s *managerPlugin) SetOnReload(engine *zero.Engine) {
+func (s *managerPlugin) SetOnReload(engine plugin.Engine) {
 	engine.OnCommand("reload", s.env.SuperUser().Rule()).Handle(func(ctx *zero.Ctx) {
 		var err error
 		defer func() {
@@ -73,7 +74,7 @@ func (s *managerPlugin) SetOnReload(engine *zero.Engine) {
 }
 
 // SetOnJoinRequest 设置处理加群申请
-func (s *managerPlugin) SetOnJoinRequest(engine *zero.Engine) {
+func (s *managerPlugin) SetOnJoinRequest(engine plugin.Engine) {
 	engine.OnRequest(s.env.Groups().Rule()).Handle(func(ctx *zero.Ctx) {
 		if ctx.Event.RequestType != "group" {
 			return
@@ -108,7 +109,7 @@ func (s *managerPlugin) SetOnJoinRequest(engine *zero.Engine) {
 }
 
 // SetOnJoinGroup 设置有新人加群
-func (s *managerPlugin) SetOnJoinGroup(engine *zero.Engine) {
+func (s *managerPlugin) SetOnJoinGroup(engine plugin.Engine) {
 	if !s.conf.EnableHello {
 		return
 	}

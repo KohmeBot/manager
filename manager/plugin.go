@@ -1,13 +1,12 @@
 package manager
 
 import (
-	"fmt"
 	"github.com/kohmebot/manager/manager/matcher"
 	"github.com/kohmebot/manager/manager/matcher/textmatcher"
-	"github.com/kohmebot/pkg/command"
-	"github.com/kohmebot/pkg/version"
-	"github.com/kohmebot/plugin"
+	"github.com/kohmebot/pkg/chain"
+	"github.com/kohmebot/plugin/v2"
 	"github.com/wdvxdr1123/ZeroBot"
+	"github.com/wdvxdr1123/ZeroBot/message"
 	"os"
 	"path/filepath"
 	"strings"
@@ -42,7 +41,7 @@ func NewPlugin() plugin.Plugin {
 	return &managerPlugin{}
 }
 
-func (s *managerPlugin) Init(engine *zero.Engine, env plugin.Env) error {
+func (s *managerPlugin) OnInit(engine plugin.Engine, env plugin.Env) error {
 	s.env = env
 	err := env.GetConf(&s.conf)
 	if err != nil {
@@ -107,16 +106,25 @@ func (s *managerPlugin) Name() string {
 	return "manager"
 }
 
-func (s *managerPlugin) Description() string {
-	return "群管理插件"
+func (s *managerPlugin) OnHelp(ctx *zero.Ctx) {
+
+	if !s.env.SuperUser().Rule()(ctx) {
+		return
+	}
+
+	var msg chain.MessageChain
+
+	msg.Split(
+		message.Text("manager 插件所有命令"),
+		message.Text("word <关键词>：添加非法词"),
+		message.Text("reload：重新加载非法词"),
+	)
+
+	ctx.Send(msg)
 }
 
-func (s *managerPlugin) Commands() fmt.Stringer {
-	return command.NewCommands()
-}
-
-func (s *managerPlugin) Version() uint64 {
-	return uint64(version.NewVersion(0, 0, 31))
+func (s *managerPlugin) Version() string {
+	return "v0.1.0"
 }
 
 func (s *managerPlugin) OnBoot() {
